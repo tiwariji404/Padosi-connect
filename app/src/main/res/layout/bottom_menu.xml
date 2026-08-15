@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <menu>
+
+        <item
+            android:id="@+id/nav_feed"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="Feed" />
+
+        <item
+            android:id="@+id/nav_suggest"
+            android:icon="@android:drawable/ic_menu_share"
+            android:title="Friends" />
+
+        <item
+            android:id="@+id/nav_sos"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="SOS" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Profile" />
+    </menu>
+</androidx.constraintlayout.widget.ConstraintLayout>

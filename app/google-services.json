@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "814680370654",
+    "project_id": "padosiconnect-72961",
+    "storage_bucket": "padosiconnect-72961.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814680370654:android:e9ed1d62d626db75e9414f",
+        "android_client_info": {
+          "package_name": "com.padosi.connect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtILxPgZaCOQj9_7jLDOjcdA3kHGlbtDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
