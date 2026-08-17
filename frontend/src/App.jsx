@@ -13,6 +13,8 @@ import Services from './pages/Services';
 import Profile from './pages/Profile';
 import GroupDetail from './pages/GroupDetail';
 import Notifications from './pages/Notifications';
+import Marketplace from './pages/Marketplace';
+import BloodDirectory from './pages/BloodDirectory';
 import BottomNav from './components/BottomNav';
 import SOSAlertModal from './components/SOSAlertModal';
 
@@ -41,6 +43,8 @@ const AppRoutes = () => (
     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
     <Route path="/groups/:id" element={<ProtectedRoute><GroupDetail /></ProtectedRoute>} />
     <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+    <Route path="/marketplace" element={<ProtectedRoute><Marketplace /></ProtectedRoute>} />
+    <Route path="/blood-directory" element={<ProtectedRoute><BloodDirectory /></ProtectedRoute>} />
     <Route path="*" element={<Navigate to="/" replace />} />
   </Routes>
 );

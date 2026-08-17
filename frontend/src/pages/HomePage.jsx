@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useAppData } from '../contexts/AppDataContext';
-import { Bell, MessageSquare, MapPin, Plus, Users, ClipboardCheck, AlertTriangle, Heart, MessageCircle, Share2, Send, X, Megaphone, HelpCircle, PartyPopper, Pin, CheckCircle2 } from 'lucide-react';
+import { Bell, MessageSquare, MapPin, Plus, Users, ClipboardCheck, AlertTriangle, Heart, MessageCircle, Share2, Send, X, Megaphone, HelpCircle, PartyPopper, Pin, CheckCircle2, ShoppingBag, Droplets } from 'lucide-react';
 
 function timeAgo(ts) {
   const diff = Date.now() - ts;
@@ -121,6 +121,28 @@ export default function HomePage() {
           <span style={{ fontWeight: 600, color: 'var(--primary)', fontSize: '0.9rem' }}>Checked in at {user.society}!</span>
         </div>
       )}
+
+      {/* Explore Network */}
+      <div className="section-header" style={{ marginTop: '4px' }}>
+        <span className="section-title">Padosi Network 🚀</span>
+      </div>
+      <div style={{ padding: '0 16px 12px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        <div onClick={() => navigate('/marketplace')} style={{ background: 'var(--white)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '8px', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#E3F2FD', color: '#1565C0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ShoppingBag size={20} />
+          </div>
+          <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>Marketplace</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Buy, Sell & Borrow</span>
+        </div>
+        
+        <div onClick={() => navigate('/blood-directory')} style={{ background: 'var(--white)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '8px', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#FFE4E6', color: '#E11D48', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Droplets size={20} />
+          </div>
+          <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>Blood Bank</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Emergency Directory</span>
+        </div>
+      </div>
 
       {/* Recent Updates */}
       <div className="section-header">
