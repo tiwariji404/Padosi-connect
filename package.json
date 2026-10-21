@@ -18,7 +18,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "backend": "node backend/server.js",
+    "backend:dev": "node --watch backend/server.js"
   },
   "private": true
 }

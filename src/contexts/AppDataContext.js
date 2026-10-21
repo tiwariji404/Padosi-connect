@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { api } from '../services/api';
 
 const AppDataContext = createContext();
 export const useAppData = () => useContext(AppDataContext);
@@ -239,6 +240,32 @@ export const AppDataProvider = ({ children }) => {
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
   const [sosActive, setSosActive] = useState(null);
 
+  // Initial Sync from Node.js Backend API
+  useEffect(() => {
+    async function loadBackendData() {
+      try {
+        const societyRes = await api.getSocietyPosts();
+        if (societyRes?.posts?.length) setSocietyPosts(societyRes.posts);
+
+        const cityRes = await api.getCityPosts();
+        if (cityRes?.posts?.length) setCityPosts(cityRes.posts);
+
+        const groupsRes = await api.getGroups();
+        if (groupsRes?.groups?.length) setGroups(groupsRes.groups);
+
+        const marketRes = await api.getMarketplace();
+        if (marketRes?.items?.length) setMarketplaceItems(marketRes.items);
+
+        const donorsRes = await api.getDonors();
+        if (donorsRes?.donors?.length) setDonors(donorsRes.donors);
+
+        const sosRes = await api.getActiveSOS();
+        if (sosRes?.activeSOS) setSosActive(sosRes.activeSOS);
+      } catch (_) {}
+    }
+    loadBackendData();
+  }, []);
+
   // Post Actions
   const addCityPost = (post) => {
     const newPost = {
@@ -250,6 +277,7 @@ export const AppDataProvider = ({ children }) => {
     };
     setCityPosts(prev => [newPost, ...prev]);
     addNotification({ type: 'post', text: `You published a new post in ${post.city} Feed` });
+    api.createCityPost(newPost).catch(() => {});
   };
 
   const addSocietyPost = (post) => {
@@ -263,6 +291,7 @@ export const AppDataProvider = ({ children }) => {
     };
     setSocietyPosts(prev => [newPost, ...prev]);
     addNotification({ type: 'post', text: `You shared a post with ${post.society}` });
+    api.createSocietyPost(newPost).catch(() => {});
   };
 
   const toggleLike = (postId, userId, feedType) => {
@@ -275,6 +304,7 @@ export const AppDataProvider = ({ children }) => {
         likes: isLiked ? p.likes.filter(id => id !== userId) : [...p.likes, userId]
       };
     }));
+    api.toggleLike(postId, userId, feedType).catch(() => {});
   };
 
   const addComment = (postId, comment, feedType) => {
@@ -286,6 +316,7 @@ export const AppDataProvider = ({ children }) => {
         comments: [...p.comments, { id: 'c_' + Date.now(), ...comment, time: Date.now() }]
       };
     }));
+    api.addComment(postId, comment.author, comment.text, feedType).catch(() => {});
   };
 
   // Group & Chat Actions
@@ -306,6 +337,7 @@ export const AppDataProvider = ({ children }) => {
       ]
     }));
     addNotification({ type: 'group', text: `New group created: ${group.name}` });
+    api.createGroup(newGroup).catch(() => {});
     return newGroup.id;
   };
 
@@ -317,6 +349,7 @@ export const AppDataProvider = ({ children }) => {
     setGroups(prev => prev.map(g =>
       g.id === groupId ? { ...g, lastMsg: message.mine ? `You: ${message.text}` : `${message.sender}: ${message.text}`, time: 'Just now' } : g
     ));
+    api.sendMessage(groupId, message).catch(() => {});
   };
 
   // Marketplace
@@ -329,6 +362,7 @@ export const AppDataProvider = ({ children }) => {
     };
     setMarketplaceItems(prev => [newItem, ...prev]);
     addNotification({ type: 'marketplace', text: `Item listed: ${item.title}` });
+    api.createMarketplaceItem(newItem).catch(() => {});
   };
 
   // Emergency SOS
@@ -339,10 +373,12 @@ export const AppDataProvider = ({ children }) => {
       text: `EMERGENCY ALERT: ${sosData.senderName} (${sosData.flat}) triggered SOS in ${sosData.society}!`,
       read: false
     });
+    api.triggerSOS(sosData).catch(() => {});
   };
 
   const dismissSOS = () => {
     setSosActive(null);
+    api.dismissSOS().catch(() => {});
   };
 
   // Notification Actions
