@@ -368,6 +368,54 @@ app.post('/api/sos/dismiss', (req, res) => {
   res.json({ success: true, message: 'SOS dismissed' });
 });
 
+let services = [
+  { id: 's1', name: 'Ramesh Patil', role: 'AC & Refrigerator Tech', rating: 4.9, reviews: 38, phone: '+91 98261 11223', verified: true, category: 'Appliance', timing: '9 AM - 8 PM' },
+  { id: 's2', name: 'Sunil Kumar', role: 'Master Electrician', rating: 4.8, reviews: 52, phone: '+91 98262 33445', verified: true, category: 'Electrical', timing: '24/7 Emergency' },
+  { id: 's3', name: 'Mohan Lal Verma', role: 'Plumbing & Tank Sanitization', rating: 4.7, reviews: 41, phone: '+91 98263 55667', verified: true, category: 'Plumbing', timing: '8 AM - 9 PM' },
+  { id: 's4', name: 'Pooja Bai', role: 'Housekeeping & Maid Coordinator', rating: 4.9, reviews: 29, phone: '+91 98264 77889', verified: true, category: 'Cleaning', timing: '7 AM - 6 PM' },
+  { id: 's5', name: 'Sunrise Gate Security', role: 'Main Gate & Intercom Desk', rating: 5.0, reviews: 84, phone: '+91 98265 99001', verified: true, category: 'Security', timing: '24/7 Desk' },
+  { id: 's6', name: 'Santosh Carpenter', role: 'Modular Kitchen & Woodwork', rating: 4.6, reviews: 19, phone: '+91 98266 12345', verified: true, category: 'Carpentry', timing: '10 AM - 7 PM' }
+];
+
+// 8. Services Endpoints
+app.get('/api/services', (req, res) => {
+  res.json({ success: true, services });
+});
+
+app.post('/api/services', (req, res) => {
+  const { name, role, phone, category, timing } = req.body;
+  const newService = {
+    id: 's_' + Date.now(),
+    name,
+    role,
+    phone,
+    category: category || 'General',
+    timing: timing || 'Flexible',
+    rating: 5.0,
+    reviews: 1,
+    verified: true
+  };
+  services.push(newService);
+  res.status(201).json({ success: true, service: newService });
+});
+
+// 9. Profile Endpoints
+app.get('/api/users/profile/:userId', (req, res) => {
+  const user = users.find(u => u.id === req.params.userId) || users[0];
+  res.json({ success: true, user });
+});
+
+app.put('/api/users/profile/:userId', (req, res) => {
+  let user = users.find(u => u.id === req.params.userId);
+  if (!user) {
+    user = { id: req.params.userId, ...req.body };
+    users.push(user);
+  } else {
+    Object.assign(user, req.body);
+  }
+  res.json({ success: true, user });
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`[PadosiConnect Backend] Server running at http://localhost:${PORT}`);
