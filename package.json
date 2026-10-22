@@ -1,26 +1,25 @@
 {
   "name": "padosi-connect",
   "version": "1.0.0",
-  "description": "PadosiConnect - Neighborhood Community Mobile App",
-  "main": "index.js",
-  "dependencies": {
-    "@expo/metro-runtime": "~58.0.14",
-    "@expo/vector-icons": "^15.0.2",
-    "expo": "~58.0.16",
-    "expo-status-bar": "~58.0.3",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "react-native": "0.88.0",
-    "react-native-safe-area-context": "~5.10.1",
-    "react-native-web": "^0.21.4"
-  },
+  "description": "PadosiConnect - Full Stack Neighborhood Community Web Platform",
+  "type": "module",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "backend": "node backend/server.js",
-    "backend:dev": "node --watch backend/server.js"
+    "dev": "npm --prefix frontend run dev",
+    "backend": "npm --prefix backend start",
+    "backend:dev": "npm --prefix backend run dev",
+    "frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend start"
   },
+  "keywords": [
+    "react",
+    "javascript",
+    "nodejs",
+    "express",
+    "firebase",
+    "community"
+  ],
+  "author": "",
+  "license": "MIT",
   "private": true
 }
